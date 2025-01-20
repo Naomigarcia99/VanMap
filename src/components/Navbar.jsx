@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import homeIcon from "../assets/images/home.png";
 import mapIcon from "../assets/images/map2.png";
 import userIcon from "../assets/images/user.png";
@@ -8,7 +8,7 @@ const Navbar = () => {
   const { user } = useAuth();
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-white border-t p-3 flex justify-around items-center shadow-lg">
+    <div className="fixed bottom-0 left-0 right-0 z-10 bg-white border-t p-3 flex justify-around items-center shadow-lg h-14">
       <NavLink
         to="/"
         className={({ isActive }) =>
