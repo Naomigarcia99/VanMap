@@ -1,12 +1,19 @@
 import { useContext, useEffect, createContext, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
+import { useRouteContext } from "./RouteContext";
 
 export const MapContext = createContext();
 
 export const MapProvider = ({ children }) => {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
+  const {
+    origin,
+    destination,
+    waypoints,
+    routeGeometry,
+  } = useRouteContext();
 
   const initializeMap = (container) => {
     if (mapRef.current) {
@@ -23,8 +30,81 @@ export const MapProvider = ({ children }) => {
     mapRef.current.addControl(new mapboxgl.NavigationControl());
   };
 
+  const updateMarkersAndRoute = () => {
+    markersRef.current.forEach((marker) => marker.remove());
+    markersRef.current = [];
+
+    const addMarker = (location, color) => {
+      if (location && location.length === 2 && !location.includes(NaN)) {
+        const marker = new mapboxgl.Marker({ color })
+          .setLngLat(location)
+          .addTo(mapRef.current);
+        markersRef.current.push(marker);
+      }
+    };
+
+    if (origin) addMarker(origin, "red");
+    if (destination) addMarker(destination, "red");
+    waypoints.forEach((wp) => addMarker(wp, "gold"));
+
+    const map = mapRef.current;
+    if (map && map.getSource("route")) {
+      map.removeLayer("route");
+      map.removeSource("route");
+    }
+  };
+
+  useEffect(() => {
+    updateMarkersAndRoute();
+  }, [origin, destination, waypoints]);
+
+  useEffect(() => {
+    if (
+      routeGeometry &&
+      routeGeometry.coordinates &&
+      routeGeometry.coordinates.length > 0
+    ) {
+      const map = mapRef.current;
+
+      if (map.getSource("route")) {
+        map.getSource("route").setData({
+          type: "Feature",
+          geometry: {
+            type: "LineString",
+            coordinates: routeGeometry.coordinates,
+          },
+        });
+      } else {
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            geometry: {
+              type: "LineString",
+              coordinates: routeGeometry.coordinates,
+            },
+          },
+        });
+
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "#3887be",
+            "line-width": 4,
+          },
+        });
+      }
+    }
+  }, [routeGeometry]);
+
   return (
-    <MapContext.Provider value={{ initializeMap }}>
+    <MapContext.Provider value={{ initializeMap, updateMarkersAndRoute }}>
       {children}
     </MapContext.Provider>
   );
