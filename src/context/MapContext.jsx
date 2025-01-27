@@ -13,6 +13,11 @@ export const MapProvider = ({ children }) => {
     destination,
     waypoints,
     routeGeometry,
+    setRoute,
+    setRouteGeometry,
+    setOrigin,
+    setDestination,
+    setWaypoints,
   } = useRouteContext();
 
   const initializeMap = (container) => {
@@ -103,8 +108,28 @@ export const MapProvider = ({ children }) => {
     }
   }, [routeGeometry]);
 
+  const clearMap = () => {
+    const map = mapRef.current;
+
+    if (map && map.getSource("route")) {
+      map.removeLayer("route");
+      map.removeSource("route");
+    }
+
+    markersRef.current.forEach((marker) => marker.remove());
+    markersRef.current = [];
+
+    setRoute(null);
+    setRouteGeometry(null);
+    setOrigin(null);
+    setDestination(null);
+    setWaypoints([]);
+  };
+
   return (
-    <MapContext.Provider value={{ initializeMap, updateMarkersAndRoute }}>
+    <MapContext.Provider
+      value={{ initializeMap, updateMarkersAndRoute, clearMap }}
+    >
       {children}
     </MapContext.Provider>
   );
