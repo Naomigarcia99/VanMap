@@ -13,9 +13,9 @@ export const RouteProvider = ({ children }) => {
   const [destinationName, setDestinationName] = useState("");
   const [waypoints, setWaypoints] = useState([]);
   const [waypointNames, setWaypointNames] = useState([]);
+  const [route, setRoute] = useState(null);
+  const [routeGeometry, setRouteGeometry] = useState(null);
 
-
-  //Obtener coordenadas
   const getCoordinates = async (location) => {
     const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(
       location
@@ -31,7 +31,6 @@ export const RouteProvider = ({ children }) => {
     return null;
   };
 
-  //Actualizar ubicaciones
   const updateLocation = async (
     setLocation,
     setLocationName,
@@ -53,6 +52,42 @@ export const RouteProvider = ({ children }) => {
     }
   };
 
+  const getRoute = async () => {
+    try {
+      if (!origin || !destination) {
+        console.warn("origen y destino son necesarios para calcular la ruta");
+        return;
+      }
+
+      const coordinates = [origin, ...waypoints, destination]
+        .map((coord) => coord.join(","))
+        .join(";");
+
+      const directionsUrl = `https://api.mapbox.com/directions/v5/mapbox/driving/${coordinates}?access_token=${mapboxgl.accessToken}&geometries=geojson&steps=true`;
+
+      const response = await fetch(directionsUrl);
+      const data = await response.json();
+
+      if (!response.ok) {
+        console.error(
+          `Error en la solicitud: ${response.status} - ${response.statusText}`
+        );
+        return;
+      }
+
+      if (data.routes && data.routes.length > 0) {
+        const newRoute = data.routes[0];
+        const { geometry } = newRoute;
+
+        setRoute(newRoute);
+        setRouteGeometry(geometry);
+      } else {
+        console.warn("no se pudo obtener la ruta");
+      }
+    } catch (error) {
+      console.error("Error al obtener la ruta:", error);
+    }
+  };
 
   useEffect(() => {
     if (originName)
@@ -89,9 +124,39 @@ export const RouteProvider = ({ children }) => {
     });
   }, [origin, destination, waypoints]);
 
+  useEffect(() => {
+    if (route && route.geometry) {
+      setRouteGeometry(route.geometry);
+    } else {
+      console.warn("la geometria de la ruta no está disponible");
+    }
+  }, [route]);
 
-
-  return <RouteContext.Provider value={{origin, setOrigin, originName, setOriginName, destination, setDestination, destinationName, setDestinationName, waypoints, setWaypoints, waypointNames, setWaypointNames,}}>{children}</RouteContext.Provider>;
+  return (
+    <RouteContext.Provider
+      value={{
+        origin,
+        setOrigin,
+        originName,
+        setOriginName,
+        destination,
+        setDestination,
+        destinationName,
+        setDestinationName,
+        waypoints,
+        setWaypoints,
+        waypointNames,
+        setWaypointNames,
+        route,
+        setRoute,
+        getRoute,
+        routeGeometry,
+        setRouteGeometry,
+      }}
+    >
+      {children}
+    </RouteContext.Provider>
+  );
 };
 
 export const useRouteContext = () => {
