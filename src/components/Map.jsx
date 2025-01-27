@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
-import { useRouteContext } from "../context/RouteContext";
+import { useMapContext } from "../context/MapContext";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
 function Map() {
-  const { initializeMap } = useRouteContext();
+  const { initializeMap } = useMapContext();
   const mapContainerRef = useRef(null);
 
   useEffect(() => {
