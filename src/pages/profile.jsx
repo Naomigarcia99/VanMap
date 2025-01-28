@@ -14,7 +14,7 @@ const ProfilePage = () => {
   };
 
   const handleOpenModal = () => {
-    setIsModalOpen(true); 
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {

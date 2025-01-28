@@ -10,30 +10,57 @@ const RoutesModal = ({ isOpen, onClose }) => {
     if (user) {
       loadUserRoutes(user.uid);
     }
-  }, [user, loadUserRoutes]);
+  }, [user]);
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-8 rounded-xl shadow-md max-w-lg w-full">
-        <h2 className="text-3xl font-semibold text-gray-800 mb-4">
+      <div className="bg-white p-8 rounded-xl shadow-md max-w-md w-full max-h-[80vh] overflow-y-auto">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center">
           Rutas Guardadas
         </h2>
 
         {userRoutes.length > 0 ? (
-          <ul>
+          <ul className="space-y-3">
             {userRoutes.map((route, index) => (
-              <li key={index} className="mb-4">
-                <p>{`Origen: ${route.origin.name}`}</p>
-                <p>{`Destino: ${route.destination.name}`}</p>
-                <p>{`Distancia: ${(route.distance / 1000).toFixed(1)} km`}</p>
-                <p>{`Duración: ${Math.round(route.duration / 60)} minutos`}</p>
+              <li
+                key={index}
+                className="bg-slate-50 p-5 rounded-lg shadow-xl border-2"
+              >
+                <p className="">
+                  <span className="font-bold text-green-600">Origen: </span>
+                  {route.origin.name}
+                </p>
+                <p>
+                  <span className="font-bold text-red-600">Destino: </span>
+                  {route.destination.name}
+                </p>
+                {route.waypoints && route.waypoints.length > 0 && (
+                  <>
+                    <p>
+                      <span className="font-bold text-yellow-500">
+                        Paradas:
+                      </span>
+                    </p>
+                    <ul className="ml-3 list-disc">
+                      {route.waypoints.map((waypoint, wpIndex) => (
+                        <li key={wpIndex}>{waypoint.name}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                <p className="text-center font-semibold mt-2">
+                  Distancia: {(route.distance / 1000).toFixed(1)} km
+                </p>
+                <p className="text-center font-semibold">{`Duración: ${Math.round(
+                  route.duration / 60
+                )} minutos`}</p>
               </li>
             ))}
           </ul>
         ) : (
-          <p>No tienes rutas guardadas.</p>
+          <p>No tienes rutas guardadas</p>
         )}
 
         <div className="mt-4">
