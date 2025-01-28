@@ -188,6 +188,23 @@ export const RouteProvider = ({ children }) => {
     }
   };
 
+  const loadUserRoutes = async (userId) => {
+    try {
+      const routesRef = collection(db, "routes");
+      const q = query(
+        routesRef,
+        where("userId", "==", userId),
+        orderBy("createdAt", "desc")
+      );
+      const querySnapshot = await getDocs(q);
+      const routes = querySnapshot.docs.map((doc) => doc.data());
+
+      setUserRoutes(routes);
+    } catch (error) {
+      console.error("Error al recuperar las rutas del usuario", error);
+    }
+  };
+
   return (
     <RouteContext.Provider
       value={{
@@ -209,6 +226,8 @@ export const RouteProvider = ({ children }) => {
         routeGeometry,
         setRouteGeometry,
         saveRouteToDataBase,
+        loadUserRoutes,
+        userRoutes,
       }}
     >
       {children}
