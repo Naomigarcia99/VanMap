@@ -1,6 +1,15 @@
 import { createContext, useState, useContext, useEffect } from "react";
-
 import mapboxgl from "mapbox-gl";
+import { db } from "../credentials";
+import {
+  getDocs,
+  where,
+  query,
+  collection,
+  addDoc,
+  orderBy,
+} from "firebase/firestore";
+import { useAuth } from "./AuthContext";
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESS_TOKEN;
 
@@ -15,6 +24,9 @@ export const RouteProvider = ({ children }) => {
   const [waypointNames, setWaypointNames] = useState([]);
   const [route, setRoute] = useState(null);
   const [routeGeometry, setRouteGeometry] = useState(null);
+
+  const { user } = useAuth();
+  const [userRoutes, setUserRoutes] = useState([]);
 
   const getCoordinates = async (location) => {
     const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(
@@ -132,6 +144,50 @@ export const RouteProvider = ({ children }) => {
     }
   }, [route]);
 
+  const saveRouteToDataBase = async (routeData) => {
+    try {
+      const { geometry } = routeData;
+      const simplifiedGeometry = geometry.coordinates.flat();
+
+      if (!origin || !Array.isArray(origin) || origin.length !== 2) {
+        console.error("coordenadas de origen no válidas");
+        return;
+      }
+
+      if (
+        !destination ||
+        !Array.isArray(destination) ||
+        destination.length !== 2
+      ) {
+        console.error("coordenadas de destino no válidas");
+        return;
+      }
+
+      const validWaypoints = Array.isArray(waypoints)
+        ? waypoints.filter((wp) => wp && wp.length === 2)
+        : [];
+
+      const routeRef = collection(db, "routes");
+      const newRouteDoc = await addDoc(routeRef, {
+        userId: user.uid,
+        origin: { name: originName, coordinates: origin },
+        destination: { name: destinationName, coordinates: destination },
+        waypoints: validWaypoints.map((_, index) => ({
+          name: waypointNames[index],
+          coordinates: waypoints[index],
+        })),
+        geometry: simplifiedGeometry,
+        distance: routeData.distance,
+        duration: routeData.duration,
+        createdAt: new Date(),
+      });
+
+      return newRouteDoc.id;
+    } catch (error) {
+      console.error("Error al guardar la ruta:", error);
+    }
+  };
+
   return (
     <RouteContext.Provider
       value={{
@@ -152,6 +208,7 @@ export const RouteProvider = ({ children }) => {
         getRoute,
         routeGeometry,
         setRouteGeometry,
+        saveRouteToDataBase,
       }}
     >
       {children}

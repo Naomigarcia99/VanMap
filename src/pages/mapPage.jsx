@@ -3,14 +3,21 @@ import Map from "../components/Map";
 import RouteForm from "../components/RouteForm";
 import { useRouteContext } from "../context/RouteContext";
 import { useMapContext } from "../context/MapContext";
+import RouteInfo from "../components/RouteInfo";
 
 function Home() {
-  const { route, setOrigin, setDestination, setWaypoints } =
-    useRouteContext();
+  const {
+    route,
+    setOrigin,
+    setDestination,
+    setWaypoints,
+    saveRouteToDataBase,
+  } = useRouteContext();
 
   const { clearMap } = useMapContext();
 
   const [isRouteInfoVisible, setIsRouteInfoVisible] = useState(false);
+  const [showSaveMessage, setShowSaveMessage] = useState(false);
 
   const handleRouteSubmit = async ({ origin, destination, waypoints }) => {
     setOrigin(origin);
@@ -19,10 +26,21 @@ function Home() {
     setIsRouteInfoVisible(true);
   };
 
-
   const handleCloseRouteInfo = () => {
     clearMap();
     setIsRouteInfoVisible(false);
+  };
+
+  const handleSaveRoute = async () => {
+    if (route && route.geometry) {
+      await saveRouteToDataBase(route);
+      setShowSaveMessage(true);
+      setTimeout(() => setShowSaveMessage(false), 3000);
+      clearMap();
+      setIsRouteInfoVisible(false);
+    } else {
+      console.warn("no hay una ruta calculada para guardar");
+    }
   };
 
   return (
@@ -31,6 +49,11 @@ function Home() {
         <h1 className="text-2xl font-bold">VanMap</h1>
       </header>
       <main className="flex-1 w-full max-w-md p-4">
+        {showSaveMessage && (
+          <div className="fixed top-32 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg z-50">
+            Ruta guardada
+          </div>
+        )}
         <RouteForm onRouteSubmit={handleRouteSubmit} />
         <RouteInfo
           route={route}
