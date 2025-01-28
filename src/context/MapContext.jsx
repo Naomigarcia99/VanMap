@@ -49,7 +49,7 @@ export const MapProvider = ({ children }) => {
     };
 
     if (origin) addMarker(origin, "red");
-    if (destination) addMarker(destination, "red");
+    if (destination) addMarker(destination, "green");
     waypoints.forEach((wp) => addMarker(wp, "gold"));
 
     const map = mapRef.current;

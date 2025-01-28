@@ -34,7 +34,7 @@ const AuthPage = () => {
             <input
               type="text"
               placeholder="Nombre"
-              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -43,7 +43,7 @@ const AuthPage = () => {
           <input
             type="email"
             placeholder="Correo electrónico"
-            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -51,7 +51,7 @@ const AuthPage = () => {
           <input
             type="password"
             placeholder="Contraseña"
-            className="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -59,7 +59,7 @@ const AuthPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold focus:outline-none hover:bg-indigo-700"
+            className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold focus:outline-none hover:bg-blue-700"
           >
             {isLogin ? "Entrar" : "Registrarse"}
           </button>
@@ -68,7 +68,7 @@ const AuthPage = () => {
         <div className="mt-4 text-center">
           <button
             onClick={() => setIsLogin(!isLogin)}
-            className="text-blue-500 underline hover:text-indigo-700"
+            className="text-blue-500 underline hover:text-blue-700"
           >
             {isLogin
               ? "¿No tienes cuenta? Regístrate"
