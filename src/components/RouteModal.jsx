@@ -12,6 +12,16 @@ const RoutesModal = ({ isOpen, onClose }) => {
     }
   }, [user]);
 
+  const formatDuration = (seconds) => {
+    const minutes = Math.round(seconds / 60);
+    if (minutes < 60) {
+      return ` ${minutes} minutos`;
+    }
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    return ` ${hours} horas y ${remainingMinutes} minutos`;
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -21,47 +31,52 @@ const RoutesModal = ({ isOpen, onClose }) => {
           Rutas Guardadas
         </h2>
 
-        {userRoutes.length > 0 ? (
-          <ul className="space-y-3">
-            {userRoutes.map((route, index) => (
-              <li
-                key={index}
-                className="bg-slate-50 p-5 rounded-lg shadow-xl border-2"
-              >
-                <p className="">
-                  <span className="font-bold text-green-600">Origen: </span>
-                  {route.origin.name}
-                </p>
-                <p>
-                  <span className="font-bold text-red-600">Destino: </span>
-                  {route.destination.name}
-                </p>
-                {route.waypoints && route.waypoints.length > 0 && (
-                  <>
-                    <p>
-                      <span className="font-bold text-yellow-500">
-                        Paradas:
-                      </span>
-                    </p>
-                    <ul className="ml-3 list-disc">
-                      {route.waypoints.map((waypoint, wpIndex) => (
-                        <li key={wpIndex}>{waypoint.name}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                <p className="text-center font-semibold mt-2">
-                  Distancia: {(route.distance / 1000).toFixed(1)} km
-                </p>
-                <p className="text-center font-semibold">{`Duración: ${Math.round(
-                  route.duration / 60
-                )} minutos`}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          <p>No tienes rutas guardadas</p>
-        )}
+        <section>
+          {userRoutes.length > 0 ? (
+            <ul className="space-y-3">
+              {userRoutes.map((route, index) => (
+                <li
+                  key={index}
+                  className="bg-slate-50 p-5 rounded-lg shadow-xl border-2"
+                >
+                  <article>
+                    <div className="flex justify-start gap-1">
+                      <p className="font-bold text-green-600">Origen:</p>
+                      <p>{route.origin.name}</p>
+                    </div>
+                    <div className="flex justify-start gap-1">
+                      <p className="font-bold text-red-600">Destino:</p>
+                      <p>{route.destination.name}</p>
+                    </div>
+
+                    {route.waypoints && route.waypoints.length > 0 && (
+                      <div>
+                        <strong className="font-bold text-yellow-500">
+                          Paradas:
+                        </strong>
+                        <ol className="ml-3 list-decimal pl-3">
+                          {route.waypoints.map((waypoint, wpIndex) => (
+                            <li key={wpIndex}>{waypoint.name}</li>
+                          ))}
+                        </ol>
+                      </div>
+                    )}
+                    <div className="flex justify-center gap-1 font-bold mt-2">
+                      <p>Distancia:</p>
+                      <p>{(route.distance / 1000).toFixed(1)} km</p>
+                    </div>
+                    <div className="flex justify-center gap-1 font-bold">
+                      <p>Duración:</p>
+                      <p>{formatDuration(route.duration)}</p>
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No tienes rutas guardadas</p>
+          )}
+        </section>
 
         <div className="mt-4">
           <button
