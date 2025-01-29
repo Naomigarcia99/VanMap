@@ -28,42 +28,6 @@ export const RouteProvider = ({ children }) => {
   const { user } = useAuth();
   const [userRoutes, setUserRoutes] = useState([]);
 
-  const getCoordinates = async (location) => {
-    const url = `https://api.mapbox.com/search/geocode/v6/forward?q=${encodeURIComponent(
-      location
-    )}&access_token=${mapboxgl.accessToken}`;
-
-    const response = await fetch(url);
-    const data = await response.json();
-
-    if (data.features.length > 0) {
-      return data.features[0].geometry.coordinates;
-    }
-
-    return null;
-  };
-
-  const updateLocation = async (
-    setLocation,
-    setLocationName,
-    location,
-    currentCoordinates
-  ) => {
-    const coordinates = await getCoordinates(location);
-
-    if (
-      coordinates &&
-      (!currentCoordinates ||
-        coordinates[0] !== currentCoordinates[0] ||
-        coordinates[1] !== currentCoordinates[1])
-    ) {
-      setLocation(coordinates);
-      setLocationName(location);
-    } else {
-      console.warn(`No se pudo encontrar la ubicación: ${location}`);
-    }
-  };
-
   const getRoute = async () => {
     try {
       if (!origin || !destination) {
@@ -100,41 +64,6 @@ export const RouteProvider = ({ children }) => {
       console.error("Error al obtener la ruta:", error);
     }
   };
-
-  useEffect(() => {
-    if (originName)
-      updateLocation(setOrigin, setOriginName, originName, origin, origin);
-
-    if (destinationName)
-      updateLocation(
-        setDestination,
-        setDestinationName,
-        destinationName,
-        destination,
-        destination
-      );
-
-    waypoints.forEach((wp, index) => {
-      if (wp)
-        updateLocation(
-          (coordinates) => {
-            setWaypoints((prev) => {
-              const newWaypoints = [...prev];
-              newWaypoints[index] = coordinates;
-              return newWaypoints;
-            });
-          },
-          (name) =>
-            setWaypointNames((prev) => {
-              const newNames = [...prev];
-              newNames[index] = name;
-              return newNames;
-            }),
-          wp,
-          waypoints[index]
-        );
-    });
-  }, [origin, destination, waypoints]);
 
   useEffect(() => {
     if (route && route.geometry) {
