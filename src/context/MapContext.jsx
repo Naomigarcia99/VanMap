@@ -52,6 +52,17 @@ export const MapProvider = ({ children }) => {
     if (destination) addMarker(destination, "green");
     waypoints.forEach((wp) => addMarker(wp, "gold"));
 
+    if (origin) mapRef.current.flyTo({ center: origin, zoom: 12 });
+    if (destination) mapRef.current.flyTo({ center: destination, zoom: 12 });
+
+    if (waypoints.length > 0) {
+      waypoints.forEach((wp) => {
+        if (Array.isArray(wp) && wp.length === 2 && !wp.includes(NaN)) {
+          mapRef.current.flyTo({ center: wp, zoom: 12 });
+        }
+      });
+    }
+
     const map = mapRef.current;
     if (map && map.getSource("route")) {
       map.removeLayer("route");
@@ -104,6 +115,12 @@ export const MapProvider = ({ children }) => {
             "line-width": 4,
           },
         });
+      }
+
+      if (routeGeometry.coordinates.length > 0) {
+        const bounds = new mapboxgl.LngLatBounds();
+        routeGeometry.coordinates.forEach((coord) => bounds.extend(coord));
+        map.fitBounds(bounds, { padding: 50 });
       }
     }
   }, [routeGeometry]);
