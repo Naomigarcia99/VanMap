@@ -12,40 +12,40 @@ const Navbar = () => {
       <NavLink
         to="/"
         className={({ isActive }) =>
-          `${
+          `rounded-full ${
             isActive
-              ? "shadow-xl p-2 rounded shadow-pastelBlue"
-              : "hover:shadow-xl hover:bg-pastelBlue rounded-full"
+              ? "shadow-xl p-2 shadow-pastelBlue"
+              : "hover:shadow-xl hover:bg-pastelBlue"
           }`
         }
       >
-        <img src={homeIcon} alt="Inicio" className="w-5 h-5 mr-2" />
+        <img src={homeIcon} alt="Inicio" className="w-5 h-5" />
       </NavLink>
 
       <NavLink
         to="/map"
         className={({ isActive }) =>
-          `${
+          ` rounded-full ${
             isActive
-              ? "shadow-xl p-2 rounded shadow-pastelBlue"
-              : "hover:shadow-xl hover:bg-pastelBlue rounded-full"
+              ? "shadow-xl p-1 shadow-pastelBlue"
+              : "hover:shadow-xl hover:bg-pastelBlue"
           }`
         }
       >
-        <img src={mapIcon} alt="Mapa" className="w-8 h-8 mr-2" />
+        <img src={mapIcon} alt="Mapa" className="w-8 h-8" />
       </NavLink>
 
       <NavLink
         to={user ? "/profile" : "/login"}
         className={({ isActive }) =>
-          `${
+          `rounded-full ${
             isActive
-              ? "shadow-xl p-2 rounded shadow-pastelBlue"
-              : "hover:shadow-xl hover:bg-pastelBlue rounded-full"
+              ? "shadow-xl p-1 shadow-pastelBlue"
+              : "hover:shadow-xl hover:bg-pastelBlue"
           }`
         }
       >
-        <img src={userIcon} alt="Mapa" className="w-6 h-6 mr-2" />
+        <img src={userIcon} alt="Mapa" className="w-6 h-6" />
       </NavLink>
     </div>
   );
