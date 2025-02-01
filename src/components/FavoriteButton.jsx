@@ -15,7 +15,7 @@ const FavoriteButton = ({ location, name }) => {
     setIsFavorite(favExists);
   }, [favorites, name]);
 
-  const handletoggleFavorite = async () => {
+  const handleToggleFavorite = async () => {
     setSaving(true);
 
     if (isFavorite) {
@@ -31,7 +31,7 @@ const FavoriteButton = ({ location, name }) => {
 
   return (
     <button
-      onClick={handletoggleFavorite}
+      onClick={handleToggleFavorite}
       disabled={saving}
       className="bg-white mx-2 hover:bg-yellow-200 rounded-full"
     >
