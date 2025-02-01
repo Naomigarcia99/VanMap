@@ -1,16 +1,45 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouteContext } from "../context/RouteContext";
 import { useAuth } from "../context/AuthContext";
+import SortButton from "./SortButton";
 
 const RoutesModal = ({ isOpen, onClose }) => {
   const { loadUserRoutes, userRoutes } = useRouteContext();
   const { user } = useAuth();
+  const [sortedRoutes, setSortedRoutes] = useState([]);
+  const [sortBy, setSortBy] = useState(null);
+  const [ascending, setAscending] = useState(true);
 
   useEffect(() => {
     if (user) {
       loadUserRoutes(user.uid);
     }
   }, [user]);
+
+  useEffect(() => {
+    let sorted = [...userRoutes];
+
+    if (sortBy === "distance") {
+      sorted.sort((a, b) =>
+        ascending ? a.distance - b.distance : b.distance - a.distance
+      );
+    } else if (sortBy === "duration") {
+      sorted.sort((a, b) =>
+        ascending ? a.duration - b.duration : b.duration - a.duration
+      );
+    }
+
+    setSortedRoutes(sorted);
+  }, [userRoutes, sortBy, ascending]);
+
+  const handleSort = (type) => {
+    if (sortBy === type) {
+      setAscending(!ascending);
+    } else {
+      setSortBy(type);
+      setAscending(true);
+    }
+  };
 
   const formatDuration = (seconds) => {
     const minutes = Math.round(seconds / 60);
@@ -22,19 +51,43 @@ const RoutesModal = ({ isOpen, onClose }) => {
     return ` ${hours} horas y ${remainingMinutes} minutos`;
   };
 
+  const handleBackgroundClick = (e) => {
+    if (e.target.id === "modalBackground") {
+      onClose();
+    }
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div
+      id="modalBackground"
+      onClick={handleBackgroundClick}
+      className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
+    >
       <div className="bg-white p-8 rounded-xl shadow-md max-w-md w-full max-h-[80vh] overflow-y-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center">
           Rutas Guardadas
         </h2>
-
+        <div className="flex justify-end gap-4 mb-2">
+          Ordenar por:
+          <SortButton
+            onClick={() => handleSort("distance")}
+            label="Distancia"
+            isActive={sortBy === "distance"}
+            isAscending={ascending}
+          ></SortButton>
+          <SortButton
+            onClick={() => handleSort("duration")}
+            label="Tiempo"
+            isActive={sortBy === "duration"}
+            isAscending={ascending}
+          ></SortButton>
+        </div>
         <section>
-          {userRoutes.length > 0 ? (
+          {sortedRoutes.length > 0 ? (
             <ul className="space-y-3">
-              {userRoutes.map((route, index) => (
+              {sortedRoutes.map((route, index) => (
                 <li
                   key={index}
                   className="bg-slate-50 p-5 rounded-lg shadow-xl border-2"
