@@ -8,6 +8,8 @@ import {
   collection,
   addDoc,
   orderBy,
+  deleteDoc,
+  doc,
 } from "firebase/firestore";
 import { useAuth } from "./AuthContext";
 
@@ -126,11 +128,26 @@ export const RouteProvider = ({ children }) => {
         orderBy("createdAt", "desc")
       );
       const querySnapshot = await getDocs(q);
-      const routes = querySnapshot.docs.map((doc) => doc.data());
+      const routes = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
 
       setUserRoutes(routes);
     } catch (error) {
       console.error("Error al recuperar las rutas del usuario", error);
+    }
+  };
+
+  const removeRouteFromDataBase = async (routeId) => {
+    try {
+      const routeDocRef = doc(db, "routes", routeId);
+
+      await deleteDoc(routeDocRef);
+
+      setUserRoutes((prev) => prev.filter((route) => route.id !== routeId));
+    } catch (error) {
+      console.error("Error al eliminar la ruta:", error);
     }
   };
 
@@ -157,6 +174,7 @@ export const RouteProvider = ({ children }) => {
         saveRouteToDataBase,
         loadUserRoutes,
         userRoutes,
+        removeRouteFromDataBase,
       }}
     >
       {children}
