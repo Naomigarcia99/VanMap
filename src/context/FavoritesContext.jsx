@@ -7,6 +7,7 @@ import {
   collection,
   addDoc,
   orderBy,
+  deleteDoc,
 } from "firebase/firestore";
 import { useAuth } from "./AuthContext";
 
@@ -54,6 +55,27 @@ export const FavoritesProvider = ({ children }) => {
     }
   };
 
+  const removeFavoritesFromDataBase = async (name) => {
+    try {
+      const q = query(
+        collection(db, "favorites"),
+        where("userId", "==", user.uid),
+        where("name", "==", name)
+      );
+      const querySnapshot = await getDocs(q);
+
+      querySnapshot.forEach(async (doc) => {
+        await deleteDoc(doc.ref);
+      });
+
+      setFavorites((prev) => {
+        prev.filter((fav) => fav.name !== name);
+      });
+    } catch (error) {
+      console.error("Error al eliminar la ubiación:", error);
+    }
+  };
+
   /*useEffect(() => {
     if (user) {
       loadFavoritesLocations();
@@ -62,7 +84,12 @@ export const FavoritesProvider = ({ children }) => {
 
   return (
     <FavoritesContext.Provider
-      value={{ saveFavoritesToDataBase, loadFavoritesLocations, favorites }}
+      value={{
+        saveFavoritesToDataBase,
+        loadFavoritesLocations,
+        favorites,
+        removeFavoritesFromDataBase,
+      }}
     >
       {children}
     </FavoritesContext.Provider>
