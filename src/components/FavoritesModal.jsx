@@ -3,14 +3,18 @@ import { useFavoritesContext } from "../context/FavoritesContext";
 import { useAuth } from "../context/AuthContext";
 
 const FavoritesModal = ({ isOpen, onClose }) => {
-  const { loadFavoritesLocations, favorites } = useFavoritesContext();
+  const {
+    loadFavoritesLocations,
+    favorites = [],
+    removeFavoritesFromDataBase,
+  } = useFavoritesContext();
   const { user } = useAuth();
 
   useEffect(() => {
     if (user) {
       loadFavoritesLocations(user.uid);
     }
-  }, [loadFavoritesLocations, user]);
+  }, [loadFavoritesLocations, user, favorites]);
 
   const handleBackgroundClick = (e) => {
     if (e.target.id === "modalBackground") {
@@ -35,9 +39,15 @@ const FavoritesModal = ({ isOpen, onClose }) => {
             favorites.map((favorite, index) => (
               <li
                 key={index}
-                className="bg-slate-50 p-5 rounded-lg shadow-xl border-2"
+                className="bg-slate-50 p-5 rounded-lg shadow-xl border-2 flex justify-between items-center"
               >
                 <p>{favorite.name}</p>
+                <button
+                  onClick={() => removeFavoritesFromDataBase(favorite.name)}
+                  className="text-red-500 rounded-full"
+                >
+                  ✘
+                </button>
               </li>
             ))
           ) : (
