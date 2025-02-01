@@ -75,30 +75,34 @@ export const AuthProvider = ({ children }) => {
 
   const handleFirebaseError = (error) => {
     let errorMessage;
+    console.log(error.code);
     switch (error.code) {
       case "auth/missing-name":
-        errorMessage = "El nombre es obligatorio.";
+        errorMessage = "El nombre es obligatorio";
         break;
       case "auth/email-already-in-use":
-        errorMessage = "El correo ya está registrado.";
+        errorMessage = "El correo ya está registrado";
         break;
       case "auth/invalid-email":
-        errorMessage = "Correo inválido.";
+        errorMessage = "Correo inválido";
         break;
       case "auth/weak-password":
-        errorMessage = "La contraseña es muy débil.";
+        errorMessage = "La contraseña es muy débil";
         break;
       case "auth/missing-password":
-        errorMessage = "Indique una contraseña.";
+        errorMessage = "Indique una contraseña";
         break;
       case "auth/user-not-found":
-        errorMessage = "Correo no registrado.";
+        errorMessage = "Correo no registrado";
         break;
       case "auth/wrong-password":
-        errorMessage = "Contraseña incorrecta.";
+        errorMessage = "Contraseña incorrecta";
+        break;
+      case "auth/invalid-credential":
+        errorMessage = "Datos incorrectos";
         break;
       default:
-        errorMessage = "Error al procesar la solicitud. Inténtalo de nuevo.";
+        errorMessage = "Rellena todos los campos";
     }
     setError(errorMessage);
   };
@@ -122,6 +126,7 @@ export const AuthProvider = ({ children }) => {
         user,
         loading,
         error,
+        setError,
         registerUser,
         loginUser,
         logout,
