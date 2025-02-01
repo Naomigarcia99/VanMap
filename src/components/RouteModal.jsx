@@ -4,7 +4,8 @@ import { useAuth } from "../context/AuthContext";
 import SortButton from "./SortButton";
 
 const RoutesModal = ({ isOpen, onClose }) => {
-  const { loadUserRoutes, userRoutes } = useRouteContext();
+  const { loadUserRoutes, userRoutes, removeRouteFromDataBase } =
+    useRouteContext();
   const { user } = useAuth();
   const [sortedRoutes, setSortedRoutes] = useState([]);
   const [sortBy, setSortBy] = useState(null);
@@ -121,6 +122,14 @@ const RoutesModal = ({ isOpen, onClose }) => {
                     <div className="flex justify-center gap-1 font-bold">
                       <p>Duración:</p>
                       <p>{formatDuration(route.duration)}</p>
+                    </div>
+                    <div className="flex justify-end">
+                      <button
+                        onClick={() => removeRouteFromDataBase(route.id)}
+                        className="text-red-500 rounded-full"
+                      >
+                        ✘
+                      </button>
                     </div>
                   </article>
                 </li>
