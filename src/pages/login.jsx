@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 
 const AuthPage = () => {
-  const { registerUser, loginUser, loading, error } = useAuth();
+  const { registerUser, loginUser, loading, error, setError } = useAuth();
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+
+  useEffect(() => {
+    if (error) {
+      setError(null);
+    }
+  }, [email, name, password, isLogin]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,15 +25,13 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen flex justify-center items-center p-4">
+    <section className="min-h-screen bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen flex justify-center items-center p-4">
       <div className="bg-white p-8 rounded-xl shadow-lg w-full sm:max-w-md">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           {isLogin ? "Iniciar sesión" : "Registrarse"}
         </h2>
 
-        {error && (
-          <p className="text-red-500 text-center mb-4">{error}</p>
-        )}
+        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
         <form onSubmit={handleSubmit}>
           {!isLogin && (
@@ -76,7 +80,7 @@ const AuthPage = () => {
           </button>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 
