@@ -1,24 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import RouteModal from "../components/RouteModal";
+import FavoritesModal from "../components/FavoritesModal";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isRoutesModalOpen, setIsRoutesModalOpen] = useState(false);
+  const [isFavoritesModalOpen, setIsFavoritesModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!user) navigate("/login");
+  }, [user]);
 
   const handleLogout = async () => {
     await logout();
     navigate("/login");
   };
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
+  const handleOpenRoutesModal = () => {
+    setIsRoutesModalOpen(true);
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
+  const handleOpenFavoritesModal = () => {
+    setIsFavoritesModalOpen(true);
+  };
+
+  const handleCloseRoutesModal = () => {
+    setIsRoutesModalOpen(false);
+  };
+
+  const handleCloseFavoritesModal = () => {
+    setIsFavoritesModalOpen(false);
   };
 
   return (
@@ -38,10 +52,18 @@ const ProfilePage = () => {
             <ul className="list-none space-y-4 mt-4">
               <li>
                 <button
-                  onClick={handleOpenModal}
+                  onClick={handleOpenRoutesModal}
                   className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700"
                 >
                   Rutas Guardadas
+                </button>
+              </li>
+              <li>
+                <button
+                  onClick={handleOpenFavoritesModal}
+                  className="w-full bg-yellow-600 text-white p-3 rounded-lg hover:bg-yellow-700"
+                >
+                  Favoritos
                 </button>
               </li>
               <li>
@@ -56,7 +78,11 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
-      <RouteModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <RouteModal isOpen={isRoutesModalOpen} onClose={handleCloseRoutesModal} />
+      <FavoritesModal
+        isOpen={isFavoritesModalOpen}
+        onClose={handleCloseFavoritesModal}
+      />
     </>
   );
 };
