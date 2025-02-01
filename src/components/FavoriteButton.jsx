@@ -4,29 +4,36 @@ import star from "../assets/images/star.png";
 import star2 from "../assets/images/star2.png";
 
 const FavoriteButton = ({ location, name }) => {
-  const { saveFavoritesToDataBase, favorites } = useFavoritesContext();
+  const { saveFavoritesToDataBase, favorites, removeFavoritesFromDataBase } =
+    useFavoritesContext();
   const [saving, setSaving] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
+    if (!favorites) return;
     const favExists = favorites.some((fav) => fav.name === name);
     setIsFavorite(favExists);
   }, [favorites, name]);
 
-  const handleSave = async () => {
-    if (isFavorite) return;
-
+  const handletoggleFavorite = async () => {
     setSaving(true);
-    await saveFavoritesToDataBase(location, name);
-    setIsFavorite(true);
+
+    if (isFavorite) {
+      await removeFavoritesFromDataBase(name);
+      setIsFavorite(false);
+    } else {
+      await saveFavoritesToDataBase(location, name);
+      setIsFavorite(true);
+    }
+
     setSaving(false);
   };
 
   return (
     <button
-      onClick={handleSave}
+      onClick={handletoggleFavorite}
       disabled={saving}
-      className="bg-white px-1 mt-2 hover:bg-yellow-200 rounded-full"
+      className="bg-white mx-2 hover:bg-yellow-200 rounded-full"
     >
       {saving ? (
         "..."
@@ -34,7 +41,7 @@ const FavoriteButton = ({ location, name }) => {
         <img
           src={isFavorite ? star2 : star}
           alt="Favorito"
-          className="w-5 h-5"
+          className="w-6 h-5"
         />
       )}
     </button>
