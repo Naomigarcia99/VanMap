@@ -1,22 +1,24 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 function AutocompleteInput({ placeholder, onSelect }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState([]);
 
   const handleInputChange = async (e) => {
     const value = e.target.value;
     setQuery(value);
 
-    if (value.trim() === '') {
+    if (value.trim() === "") {
       setSuggestions([]);
       return;
     }
 
     try {
       const response = await axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json`,
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          value
+        )}.json`,
         {
           params: {
             access_token: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
@@ -28,7 +30,7 @@ function AutocompleteInput({ placeholder, onSelect }) {
 
       setSuggestions(response.data.features);
     } catch (error) {
-      console.error('Error al obtener sugerencias:', error);
+      console.error("Error al obtener sugerencias:", error);
     }
   };
 
@@ -39,7 +41,7 @@ function AutocompleteInput({ placeholder, onSelect }) {
   };
 
   return (
-    <div className="relative">
+    <div className="relative w-full">
       <input
         type="text"
         placeholder={placeholder}
