@@ -9,13 +9,15 @@ import { Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import { RouteProvider } from "./context/RouteContext.jsx";
 import { MapProvider } from "./context/MapContext.jsx";
+import { FavoritesProvider } from "./context/FavoritesContext.jsx";
 
 function App() {
   return (
     <>
       <AuthProvider>
         <RouteProvider>
-            <MapProvider>
+          <MapProvider>
+            <FavoritesProvider>
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route
@@ -30,7 +32,8 @@ function App() {
                 <Route path="/profile" element={<Profile />} />
               </Routes>
               <Navbar />
-            </MapProvider>
+            </FavoritesProvider>
+          </MapProvider>
         </RouteProvider>
       </AuthProvider>
     </>
