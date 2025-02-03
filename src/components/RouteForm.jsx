@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useRouteContext } from "../context/RouteContext";
 import AutocompleteInput from "./AutocompleteInput";
 import FavoriteButton from "./FavoriteButton";
@@ -20,10 +20,13 @@ function RouteForm({ onRouteSubmit }) {
     getRoute,
   } = useRouteContext();
 
+  const [error, setError] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!origin || !destination) {
-      alert("Completa los campos de origen y destino");
+      setError(true);
+      setTimeout(() => setError(false), 2000);
       return;
     }
     onRouteSubmit({
@@ -132,6 +135,11 @@ function RouteForm({ onRouteSubmit }) {
         >
           Calcular Ruta
         </button>
+        {error && (
+          <div className="fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white px-2 py-2 rounded-lg shadow-lg z-50">
+            Rellena origen y destino
+          </div>
+        )}
       </div>
     </form>
   );
