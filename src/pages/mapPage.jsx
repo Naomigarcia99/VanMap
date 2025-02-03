@@ -44,8 +44,8 @@ function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-pastelBeige flex flex-col items-center pb-14">
-      <header className="w-full bg-pastelBlue text-center py-1 shadow-md h-10">
+    <div className="min-h-screen bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen flex flex-col items-center pb-14">
+      <header className="w-full bg-blue-300 text-center py-1 shadow-md h-10">
         <h1 className="text-2xl font-bold">VanMap</h1>
       </header>
       <main className="flex-1 w-full max-w-md px-3 py-2">

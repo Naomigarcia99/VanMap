@@ -25,7 +25,7 @@ const Home = () => {
         <div>
           <Link
             to="/map"
-            className="bg-blue-500 text-white p-3 rounded-full shadow-md text-center w-auto"
+            className="bg-blue-500 text-white p-3 rounded-full shadow-md text-center w-auto transition hover:bg-blue-600"
             aria-label="Empezar"
           >
             Empezar

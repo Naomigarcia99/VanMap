@@ -30,7 +30,7 @@ const FavoritesModal = ({ isOpen, onClose }) => {
       onClick={handleBackgroundClick}
       className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50"
     >
-      <div className="bg-white p-8 rounded-xl shadow-md max-w-md w-full max-h-[80vh] overflow-y-auto">
+      <div className="bg-white p-8 mx-3 rounded-xl shadow-md max-w-md w-full max-h-[80vh] overflow-y-auto">
         <h2 className="text-3xl font-semibold text-gray-800 mb-4 text-center">
           Ubicaciones Favoritas
         </h2>
@@ -54,6 +54,14 @@ const FavoritesModal = ({ isOpen, onClose }) => {
             <li>No tienes ubicaciones favoritas</li>
           )}
         </ul>
+        <div className="flex mt-4">
+          <button
+            onClick={onClose}
+            className="mx-auto w-auto bg-red-500 text-white p-2 rounded-full hover:bg-red-600"
+          >
+            Cerrar
+          </button>
+        </div>
       </div>
     </div>
   );

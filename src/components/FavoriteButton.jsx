@@ -33,7 +33,7 @@ const FavoriteButton = ({ location, name }) => {
     <button
       onClick={handleToggleFavorite}
       disabled={saving}
-      className="bg-white mx-2 hover:bg-yellow-200 rounded-full"
+      className="bg-white mx-2 rounded-full"
     >
       {saving ? (
         "..."

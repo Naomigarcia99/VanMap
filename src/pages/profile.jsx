@@ -37,44 +37,35 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-pastelBeige p-6">
-        <div className="bg-white p-8 rounded-xl shadow-md max-w-lg mx-auto">
-          <h2 className="text-3xl font-semibold text-gray-800 mb-4">
-            Perfil de {user?.displayName}
-          </h2>
+      <div className="min-h-screen flex items-center px-3 pb-24 justify-center bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen">
+        <div className="bg-white px-8 py-20 mt-14 rounded-xl shadow-md max-w-lg w-full text-center">
+          <h2 className="text-3xl font-semibold text-gray-800">Perfil</h2>
 
-          <div className="mb-4">
-            <p className="text-xl text-gray-700">Correo: {user?.email}</p>
+          <div className="my-6">
+            <p className="text-xl text-gray-600">Nombre: {user?.displayName}</p>
+            <p className="text-xl text-gray-600">Correo: {user?.email}</p>
           </div>
 
-          <div className="mt-6">
+          <div className="space-y-4 mt-6">
             <h3 className="text-2xl font-semibold text-gray-700">Opciones</h3>
-            <ul className="list-none space-y-4 mt-4">
-              <li>
-                <button
-                  onClick={handleOpenRoutesModal}
-                  className="w-full bg-indigo-600 text-white p-3 rounded-lg hover:bg-indigo-700"
-                >
-                  Rutas Guardadas
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={handleOpenFavoritesModal}
-                  className="w-full bg-yellow-600 text-white p-3 rounded-lg hover:bg-yellow-700"
-                >
-                  Favoritos
-                </button>
-              </li>
-              <li>
-                <button
-                  onClick={handleLogout}
-                  className="w-full bg-red-600 text-white p-3 rounded-lg hover:bg-red-700"
-                >
-                  Cerrar sesión
-                </button>
-              </li>
-            </ul>
+            <button
+              onClick={handleOpenRoutesModal}
+              className="w-full py-3 bg-blue-500 text-white rounded-full shadow-md transition hover:bg-blue-600"
+            >
+              Rutas Guardadas
+            </button>
+            <button
+              onClick={handleOpenFavoritesModal}
+              className="w-full bg-blue-500 text-white py-3 rounded-full shadow-md transition hover:bg-blue-600"
+            >
+              Favoritos
+            </button>
+            <button
+              onClick={handleLogout}
+              className="w-full bg-red-500 text-white py-3 rounded-full shadow-md transition hover:bg-red-600"
+            >
+              Cerrar sesión
+            </button>
           </div>
         </div>
       </div>

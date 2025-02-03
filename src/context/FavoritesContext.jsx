@@ -76,12 +76,6 @@ export const FavoritesProvider = ({ children }) => {
     }
   };
 
-  /*useEffect(() => {
-    if (user) {
-      loadFavoritesLocations();
-    }
-  }, [user]);*/
-
   return (
     <FavoritesContext.Provider
       value={{

@@ -102,13 +102,7 @@ function RouteForm({ onRouteSubmit }) {
             <div key={index} className="flex items-center space-x-2 m-2 w-64">
               <AutocompleteInput
                 placeholder={`Parada ${index + 1}`}
-                //value={waypointNames[index]}
                 onSelect={(suggestion) => {
-                  console.log(
-                    "WAYPOINT SELECTED:",
-                    suggestion.geometry.coordinates,
-                    suggestion.place_name
-                  );
                   updateWaypoint(index, suggestion);
                 }}
               />
@@ -126,7 +120,7 @@ function RouteForm({ onRouteSubmit }) {
         <button
           type="button"
           onClick={addWaypoint}
-          className="bg-pastelBlue rounded-full p-1 text-white text-sm hover:bg-pastelGreen"
+          className="bg-blue-400 rounded-full p-1 text-white text-sm hover:bg-blue-500"
         >
           Añadir Parada
         </button>
@@ -134,7 +128,7 @@ function RouteForm({ onRouteSubmit }) {
       <div className="flex justify-center">
         <button
           type="submit"
-          className="px-3 bg-pastelGreen py-1 rounded-full text-white font-semibold hover:bg-pastelBlue"
+          className="px-3 bg-blue-500 py-1 rounded-full text-white font-semibold hover:bg-blue-700"
         >
           Calcular Ruta
         </button>

@@ -47,7 +47,7 @@ function AutocompleteInput({ placeholder, onSelect }) {
         placeholder={placeholder}
         value={query}
         onChange={handleInputChange}
-        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring focus:ring-pastelBlue"
+        className="w-full border border-gray-300 p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
       />
       {suggestions.length > 0 && (
         <ul className="absolute z-10 bg-white border border-gray-300 rounded-lg w-full mt-1 shadow-md">
@@ -55,7 +55,7 @@ function AutocompleteInput({ placeholder, onSelect }) {
             <li
               key={suggestion.id}
               onClick={() => handleSuggestionClick(suggestion)}
-              className="p-2 hover:bg-pastelBlue cursor-pointer"
+              className="p-2 hover:bg-blue-100 cursor-pointer"
             >
               {suggestion.place_name}
             </li>

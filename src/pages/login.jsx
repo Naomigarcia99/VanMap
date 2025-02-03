@@ -26,7 +26,7 @@ const AuthPage = () => {
 
   return (
     <section className="min-h-screen bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen flex justify-center items-center p-4">
-      <div className="bg-white p-8 rounded-xl shadow-lg w-full sm:max-w-md">
+      <div className="bg-white p-8 rounded-xl shadow-lg max-w-md">
         <h2 className="text-3xl font-bold text-center text-gray-800 mb-6">
           {isLogin ? "Iniciar sesión" : "Registrarse"}
         </h2>
@@ -38,7 +38,7 @@ const AuthPage = () => {
             <input
               type="text"
               placeholder="Nombre"
-              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
@@ -47,7 +47,7 @@ const AuthPage = () => {
           <input
             type="email"
             placeholder="Correo electrónico"
-            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -55,7 +55,7 @@ const AuthPage = () => {
           <input
             type="password"
             placeholder="Contraseña"
-            className="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -63,7 +63,7 @@ const AuthPage = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white p-3 rounded-lg font-semibold focus:outline-none hover:bg-blue-700"
+            className="w-full bg-blue-500 text-white p-3 rounded-xl font-semibold focus:outline-none transition hover:bg-blue-600"
           >
             {isLogin ? "Entrar" : "Registrarse"}
           </button>
