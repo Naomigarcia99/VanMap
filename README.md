@@ -4,18 +4,24 @@ Sprint 9. Route calculator.
 ## Introduction
 VanMap is a web application for calculating caravan travel routes. Allows users to create custom routes with origin, destination and intermediate stops, as well as save favorite routes and locations in their profile.
 
+![Home](./src/assets/images/homeP.png)
+![Login](./src/assets/images/loginP.png)
+![Form](./src/assets/images/formP.png)
+![Map](./src/assets/images/mapP.png)
+![Profile](./src/assets/images/profileP.png)
+![Routes](./src/assets/images/routesP.png)
+![Favorites](./src/assets/images/favoritesP.png)
+
 ## Features
-- Firebase Authentication: Register and log in securely.
-- Route calculation: Find routes between origin and destination, with the option of adding intermediate stops.
-- Location management: ​​Save your favorite routes and locations to your profile.
-- Modern and fast frontend: Developed with React + Vite, styled with TailwindCSS.
-- Efficient API consumption: Axios for request management and Firestore as a real-time database.
-- Smooth navigation: React Router DOM for a dynamic user experience.
+- **Firebase Authentication**: Register and log in securely.
+- **Route calculation**: Find routes between origin and destination, with the option of adding intermediate stops.
+- **Location management**: ​​Save your favorite routes and locations to your profile.
+- **Modern and fast frontend**: Developed with React + Vite, styled with TailwindCSS.
+- **Efficient API consumption**: Axios for request management and Firestore as a real-time database.
+- **Smooth navigation**: React Router DOM for a dynamic user experience.
 
 ## Requirements
-
 To run this project, make sure you have the following tools installed:
-
 - Node.js (version 14 or higher)
 - npm (version 6 or higher)
 - React (compatible versions with the code)
@@ -26,7 +32,6 @@ To run this project, make sure you have the following tools installed:
 - Modern browser (Google Chrome, Firefox, etc.)
 
 ## Technologies Used
-
 - **React + Vite**
 - **Tailwind CSS**
 - **React Router**
@@ -34,25 +39,20 @@ To run this project, make sure you have the following tools installed:
 - **Mapbox**
 
 ## Instructions
-
 ### 1. Clone the repository
-
 First, clone the repository to your local machine:
-
 ```bash
 git clone https://github.com/Naomigarcia99/VanMap.git
 cd VanMap
 ```
 
 ### 2. Install dependencies
-
 ```bash
   npm install
 ```
 
 ### 3. Configure Environment Variables
-
-- Create an .env file in the project root and add your Mapbox credentials:
+- Create an .env file in the project root and add your Mapbox token:
 ```bash
 VITE_MAPBOX_ACCESS_TOKEN=Enter your token here
 ```
