@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import Van from "../assets/images/van.mp4";
+import Van2 from "../assets/images/van3.mp4";
 
 const Home = () => {
   return (
@@ -9,7 +10,18 @@ const Home = () => {
         loop
         muted
         playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover max-w-full max-h-screen"
+        className="absolute top-0 left-0 w-full h-full object-cover hidden sm:block "
+      >
+        <source src={Van2} type="video/mp4" />
+        Tu navegador no soporta la reproducción de videos.
+      </video>
+
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute top-0 left-0 w-full h-full object-cover block sm:hidden "
       >
         <source src={Van} type="video/mp4" />
         Tu navegador no soporta la reproducción de videos.
@@ -19,7 +31,7 @@ const Home = () => {
         <header className=" text-center mb-6">
           <h1 className="text-4xl font-semibold mb-10">Bienvenidos a VanMap</h1>
         </header>
-        <p className="text-xl mb-4 text-center">
+        <p className="text-xl mb-6 text-center mx-5">
           Tu app para planificar y guardar rutas para tus viajes en caravana.
         </p>
         <div>
