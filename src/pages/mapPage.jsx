@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Map from "../components/Map";
-import RouteForm from "../components/RouteForm";
+import Map from "../components/ui/Map";
+import RouteForm from "../components/form/RouteForm";
 import { useRouteContext } from "../context/RouteContext";
 import { useMapContext } from "../context/MapContext";
-import RouteInfo from "../components/RouteInfo";
+import RouteInfo from "../components/ui/RouteInfo";
 
-function Home() {
+function mapPage() {
   const {
     route,
     setOrigin,
@@ -48,23 +48,29 @@ function Home() {
       <header className="w-full bg-blue-300 text-center py-1 shadow-md h-10">
         <h1 className="text-2xl font-bold">VanMap</h1>
       </header>
-      <main className="flex-1 w-full max-w-md px-3 py-2">
+      <main className="flex-1 w-full px-4 py-2">
         {showSaveMessage && (
           <div className="fixed top-32 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-2 rounded-lg shadow-lg z-50">
             Ruta guardada
           </div>
         )}
-        <RouteForm onRouteSubmit={handleRouteSubmit} />
-        <RouteInfo
-          route={route}
-          isVisible={isRouteInfoVisible}
-          onSave={handleSaveRoute}
-          onClose={handleCloseRouteInfo}
-        />
-        <Map />
+        <section className="flex flex-col xl:flex-row xl:gap-3 items-center">
+          <div className="w-full xl:w-1/3">
+            <RouteForm onRouteSubmit={handleRouteSubmit} />
+            <RouteInfo
+              route={route}
+              isVisible={isRouteInfoVisible}
+              onSave={handleSaveRoute}
+              onClose={handleCloseRouteInfo}
+            />
+          </div>
+          <div className="w-full xl:w-2/3">
+            <Map />
+          </div>
+        </section>
       </main>
     </div>
   );
 }
 
-export default Home;
+export default mapPage;
