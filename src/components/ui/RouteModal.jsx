@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useRouteContext } from "../context/RouteContext";
-import { useAuth } from "../context/AuthContext";
+import { useRouteContext } from "../../context/RouteContext";
+import { useAuth } from "../../context/AuthContext";
 import SortButton from "./SortButton";
 
 const RoutesModal = ({ isOpen, onClose }) => {

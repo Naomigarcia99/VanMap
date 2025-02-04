@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useFavoritesContext } from "../context/FavoritesContext";
-import star from "../assets/images/star.png";
-import star2 from "../assets/images/star2.png";
+import { useFavoritesContext } from "../../context/FavoritesContext";
+import star from "../../assets/images/star.png";
+import star2 from "../../assets/images/star2.png";
 
 const FavoriteButton = ({ location, name }) => {
   const { saveFavoritesToDataBase, favorites, removeFavoritesFromDataBase } =

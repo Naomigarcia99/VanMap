@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { db } from "../credentials";
+import { db } from "../utils/credentials";
 import {
   getDocs,
   where,

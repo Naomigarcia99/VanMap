@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useFavoritesContext } from "../context/FavoritesContext";
-import { useAuth } from "../context/AuthContext";
+import { useFavoritesContext } from "../../context/FavoritesContext";
+import { useAuth } from "../../context/AuthContext";
 
 const FavoritesModal = ({ isOpen, onClose }) => {
   const {

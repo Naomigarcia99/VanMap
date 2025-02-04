@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useRouteContext } from "../context/RouteContext";
+import { useRouteContext } from "../../context/RouteContext";
 import AutocompleteInput from "./AutocompleteInput";
-import FavoriteButton from "./FavoriteButton";
+import FavoriteButton from "../ui/FavoriteButton";
 
 function RouteForm({ onRouteSubmit }) {
   const {

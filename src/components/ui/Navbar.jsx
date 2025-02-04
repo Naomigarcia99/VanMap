@@ -1,11 +1,11 @@
 import { NavLink } from "react-router-dom";
-import homeIcon from "../assets/images/home.png";
-import homeIcon2 from "../assets/images/home2.png";
-import mapIcon2 from "../assets/images/maps2.png";
-import mapIcon1 from "../assets/images/maps1.png";
-import userIcon1 from "../assets/images/user1.png";
-import userIconActive from "../assets/images/user2.png";
-import { useAuth } from "../context/AuthContext";
+import homeIcon from "../../assets/images/home.png";
+import homeIcon2 from "../../assets/images/home2.png";
+import mapIcon2 from "../../assets/images/maps2.png";
+import mapIcon1 from "../../assets/images/maps1.png";
+import userIcon1 from "../../assets/images/user1.png";
+import userIconActive from "../../assets/images/user2.png";
+import { useAuth } from "../../context/AuthContext";
 
 const Navbar = () => {
   const { user } = useAuth();

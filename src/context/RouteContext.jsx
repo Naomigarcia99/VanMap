@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import mapboxgl from "mapbox-gl";
-import { db } from "../credentials";
+import { db } from "../utils/credentials";
 import {
   getDocs,
   where,

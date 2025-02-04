@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { useMapContext } from "../context/MapContext";
+import { useMapContext } from "../../context/MapContext";
 
 function Map() {
   const { initializeMap } = useMapContext();

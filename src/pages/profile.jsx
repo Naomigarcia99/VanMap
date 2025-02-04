@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import RouteModal from "../components/RouteModal";
-import FavoritesModal from "../components/FavoritesModal";
+import RouteModal from "../components/ui/RouteModal";
+import FavoritesModal from "../components/ui/FavoritesModal";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
@@ -37,8 +37,8 @@ const ProfilePage = () => {
 
   return (
     <>
-      <div className="min-h-screen flex items-center px-3 pb-24 justify-center bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen">
-        <div className="bg-white px-8 py-20 mt-14 rounded-xl shadow-md max-w-lg w-full text-center">
+      <main className="min-h-screen flex items-center px-3 pb-24 justify-center bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen">
+        <section className="bg-white px-8 py-20 mt-14 rounded-xl shadow-md max-w-lg w-full text-center">
           <h2 className="text-3xl font-semibold text-gray-800">Perfil</h2>
 
           <div className="my-6">
@@ -67,8 +67,8 @@ const ProfilePage = () => {
               Cerrar sesión
             </button>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
       <RouteModal isOpen={isRoutesModalOpen} onClose={handleCloseRoutesModal} />
       <FavoritesModal
         isOpen={isFavoritesModalOpen}

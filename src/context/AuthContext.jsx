@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState } from "react";
-import { auth } from "../credentials";
+import { auth } from "../utils/credentials";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
