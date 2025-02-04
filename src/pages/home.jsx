@@ -27,12 +27,14 @@ const Home = () => {
         Tu navegador no soporta la reproducción de videos.
       </video>
 
-      <main className="relative flex flex-col justify-center items-center h-full text-white bg-black bg-opacity-50">
-        <header className=" text-center mb-6">
-          <h1 className="text-4xl font-semibold mb-10">Bienvenidos a VanMap</h1>
+      <main className="relative flex flex-col justify-center items-center h-full text-white bg-black bg-opacity-50 px-5">
+        <header className="text-center mb-6">
+          <h1 className="bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen bg-clip-text text-5xl font-extrabold text-transparent w-[90%] sm:w-auto sm:text-6xl">
+            Bienvenidos a VanMap
+          </h1>
         </header>
         <p className="text-xl mb-6 text-center mx-5">
-          Tu app para planificar y guardar rutas para tus viajes en caravana.
+          Tu app para planificar y guardar rutas para tus viajes en caravana
         </p>
         <div>
           <Link
