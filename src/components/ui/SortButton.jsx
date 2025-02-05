@@ -1,3 +1,5 @@
+
+
 const SorButton = ({ onClick, label, isActive, isAscending }) => {
   return (
     <button
@@ -6,7 +8,7 @@ const SorButton = ({ onClick, label, isActive, isAscending }) => {
         isActive ? "font-bold bg-blue-600" : ""
       }`}
     >
-      {label} {isActive ? (isAscending ? "⭣" : "⭡") : ""}
+      {label} {isActive ? (isAscending ? "↓" : "↑") : ""}
     </button>
   );
 };

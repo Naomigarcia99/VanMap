@@ -8,9 +8,12 @@ export default {
         pastelPink: "#FDD7E4",
         pastelBeige: "#F5F5DC",
         pastelGreen: "#B5EAD7",
+        pastelGr: "#bdd0ba",
+        pastelGr2: "#9fb37b",
+        pastelGrDr: "#36452c",
       },
       fontFamily: {
-        sans: ['Inter', 'Roboto', 'sans-serif'],
+        sans: ["Inter", "Roboto", "sans-serif"],
       },
     },
   },

@@ -45,8 +45,8 @@ function mapPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen flex flex-col items-center pb-14">
-      <header className="w-full bg-blue-300 text-center py-1 shadow-md h-10">
-        <h1 className="text-2xl font-bold">VanMap</h1>
+      <header className="w-full bg-pastelGr text-center py-1 shadow-md h-10">
+        <h1 className="text-2xl font-bold text-pastelGrDr">VanMap</h1>
       </header>
       <main className="flex-1 w-full px-4 py-2">
         {showSaveMessage && (

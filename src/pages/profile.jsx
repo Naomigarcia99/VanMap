@@ -3,6 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import RouteModal from "../components/ui/RouteModal";
 import FavoritesModal from "../components/ui/FavoritesModal";
+import Logo from "../assets/images/VanMap3-modified.png";
 
 const ProfilePage = () => {
   const { user, logout } = useAuth();
@@ -37,32 +38,33 @@ const ProfilePage = () => {
 
   return (
     <>
-      <main className="min-h-screen flex items-center px-3 pb-24 justify-center bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen">
-        <section className="bg-white px-8 py-20 mt-14 rounded-xl shadow-md max-w-lg w-full text-center">
-          <h2 className="text-3xl font-semibold text-gray-800">Perfil</h2>
+      <main className="min-h-screen flex items-center px-3 pb-20 justify-center bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen">
+        <section className="bg-white px-8 px-16 pb-16 pt-10 mt-14 rounded-xl shadow-md max-w-lg w-full text-center">
+          <div className="flex flex-col items-center">
+            <img src={Logo} alt="Logo" className="h-32 w-32" />
+          </div>
 
-          <div className="my-6">
-            <p className="text-xl text-gray-600">Nombre: {user?.displayName}</p>
-            <p className="text-xl text-gray-600">Correo: {user?.email}</p>
+          <div className="my-5">
+            <p className="text-3xl font-bold text-gray-600 mb-2">{user?.displayName}</p>
+            <p className="text-lg text-gray-600">{user?.email}</p>
           </div>
 
           <div className="space-y-4 mt-6">
-            <h3 className="text-2xl font-semibold text-gray-700">Opciones</h3>
             <button
               onClick={handleOpenRoutesModal}
-              className="w-full py-3 bg-blue-500 text-white rounded-full shadow-md transition hover:bg-blue-600"
+              className="text-black font-bold w-full py-3 bg-pastelGr2/70 text-white rounded-full shadow-md transition hover:bg-pastelGr2/30"
             >
               Rutas Guardadas
             </button>
             <button
               onClick={handleOpenFavoritesModal}
-              className="w-full bg-blue-500 text-white py-3 rounded-full shadow-md transition hover:bg-blue-600"
+              className="text-black font-bold w-full bg-pastelGrDr text-white py-3 rounded-full shadow-md transition hover:bg-pastelGrDr/60"
             >
               Favoritos
             </button>
             <button
               onClick={handleLogout}
-              className="w-full bg-red-500 text-white py-3 rounded-full shadow-md transition hover:bg-red-600"
+              className="font-bold w-full bg-red-400 text-white py-3 rounded-full shadow-md transition hover:bg-red-600"
             >
               Cerrar sesión
             </button>
