@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Van from "../assets/images/van.mp4";
 import Van2 from "../assets/images/van3.mp4";
-import Logo from "../assets/images/VanMap-modified.png";
+import Logo from "../assets/images/VanMap3-modified.png";
 
 const Home = () => {
   return (
@@ -28,15 +28,15 @@ const Home = () => {
         Tu navegador no soporta la reproducción de videos.
       </video>
 
-      <main className="relative flex flex-col justify-around items-center h-full text-white bg-black bg-opacity-50 px-5">
-        <header className="absolute top-8 flex flex-col items-center text-center mb-24">
+      <main className="relative flex flex-col justify-center items-center h-screen text-white bg-black bg-opacity-50 px-5">
+        <header className="flex flex-col items-center text-center mb-16">
           <img src={Logo} alt="Logo" className="h-32 w-32" />
           <h1 className="mt-8 bg-gradient-to-r from-pastelBeige via-pastelBlue to-pastelGreen bg-clip-text text-5xl font-extrabold text-transparent sm:w-auto sm:text-6xl">
             Bienvenidos a <br /> VanMap
           </h1>
         </header>
-        <div className="flex flex-col justify-center items-center mt-80 mb-48">
-          <p className="text-xl mb-8 text-center mx-5">
+        <div className="flex flex-col items-center pb-12">
+          <p className="text-xl mb-10 text-center mx-6">
             Tu app para planificar y guardar rutas para tus viajes en caravana
           </p>
           <div>
