@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useState } from "react";
-import { auth } from "../utils/credentials";
+import { auth, db } from "../utils/credentials";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext();
 
@@ -35,10 +36,20 @@ export const AuthProvider = ({ children }) => {
         displayName: name,
       });
 
+      const updatedUser = auth.currentUser;
+
+      await setDoc(doc(db, "users", userCredential.user.uid), {
+        email: email,
+        displayName: name,
+        role: "user",
+        createdAt: new Date(),
+      });
+
       setUser({
-        uid: userCredential.user.uid,
-        email: userCredential.user.email,
-        displayName: userCredential.user.displayName,
+        uid: updatedUser.uid,
+        email: updatedUser.email,
+        displayName: updatedUser.displayName,
+        role: "user",
       });
       navigate("/profile");
     } catch (error) {
@@ -60,11 +71,18 @@ export const AuthProvider = ({ children }) => {
 
       const displayName = userCredential.user.displayName || "Usuario Anónimo";
 
-      setUser({
-        uid: userCredential.user.uid,
-        email: userCredential.user.email,
-        displayName: displayName,
-      });
+      const userDoc = await getDoc(doc(db, "users", userCredential.user.uid));
+
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+
+        setUser({
+          uid: userCredential.user.uid,
+          email: userCredential.user.email,
+          displayName: displayName,
+          role: userData.role,
+        });
+      }
       navigate("/profile");
     } catch (error) {
       handleFirebaseError(error);
